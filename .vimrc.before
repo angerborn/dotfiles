@@ -1,0 +1,23 @@
+" Assuming use of Janus: https://github.com/carlhuda/janus
+"
+" See .vimrc.after for more settings.
+
+" map leader to ,
+let mapleader="," 
+
+" map jj to esc in insert mode
+imap jj <esc>
+
+" disable arrow keys
+inoremap  <Up>     <NOP>
+inoremap  <Down>   <NOP>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
+
+" map <F2> to toggle paste mode
+set pastetoggle=<F2>
+
