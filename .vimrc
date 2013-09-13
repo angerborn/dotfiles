@@ -29,6 +29,7 @@ Bundle 'tpope/vim-rails'
 Bundle 'mattn/emmet-vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'dag/vim2hs'
+Bundle 'airblade/vim-gitgutter'
 " Note! YouCompleteMe requires newer version of vim
 " Easiest way is to just install 7.4 from source..
 " instructions: http://michaelheap.com/installing-vim-7-4-on-ubuntu/
@@ -43,7 +44,7 @@ filetype plugin indent on     " required! for vundle
 if has("gui_running")
     colors solarized
     set background=light
-    set guifont=Ubuntu\ mono\ 12
+    set guifont=Ubuntu\ mono\ 11
     set guioptions-=m  "remove menu bar
     set guioptions-=T  "remove toolbar
     " Maximize size of window
@@ -72,7 +73,8 @@ set laststatus=2
 "set showtabline=2
 " Highlight the current line
 set cursorline
-set nu
+set nu  " show numbers
+set rnu " relative line numbering
 set nowrap
 " Briefly show matching bracket when new is inserted
 set showmatch
