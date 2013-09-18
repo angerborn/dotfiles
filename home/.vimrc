@@ -56,22 +56,14 @@ else
 endif
 
 " ========================================
-" BETTER COPY/PASTE IN GVIM
-if has ('x') && has ('gui') " On Linux use + register for copy-paste
-    set clipboard=unnamedplus
-elseif has ('gui')          " On mac and Windows, use * register for copy-paste
-    set clipboard=unnamed
-endif
-
-" ========================================
 " TABS AND WHITESPACES
 filetype plugin indent on
 set expandtab
 set tabstop=4
-set shiftwidth=2
-set softtabstop=2
+set shiftwidth=4
+set softtabstop=4
 set smarttab
-set laststatus=2
+set laststatus=4
 
 " ========================================
 " LINE NUMBERING AND HIGHLIGHTING
