@@ -44,7 +44,7 @@ syntax on
 " GUI/TERM SPECIFIC SETTINGS
 if has("gui_running")
     colors solarized
-    set background=dark
+    set background=light
     set guifont=Ubuntu\ mono\ 11
 
     set guioptions-=m
