@@ -24,6 +24,7 @@ Bundle "garbas/vim-snipmate"
 Bundle 'vim-scripts/ZoomWin'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'scrooloose/syntastic'
+Bundle 'honza/vim-snippets'
 Bundle 'tpope/vim-surround'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-rails'
@@ -34,7 +35,7 @@ Bundle 'airblade/vim-gitgutter'
 " Note! YouCompleteMe requires newer version of vim
 " Easiest way is to just install 7.4 from source..
 " instructions: http://michaelheap.com/installing-vim-7-4-on-ubuntu/
-Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
 
 " ========================================
 " SYNTAX HIGHLIGHTING
@@ -43,8 +44,8 @@ syntax on
 " ========================================
 " GUI/TERM SPECIFIC SETTINGS
 if has("gui_running")
-    colors solarized
-    set background=light
+    colors Tomorrow-Night
+    set background=dark
     set guifont=Ubuntu\ mono\ 11
 
     set guioptions-=m
