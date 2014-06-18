@@ -1,7 +1,7 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
 
@@ -9,33 +9,33 @@ call vundle#rc()
 " BUNDLES
 
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
-Bundle 'tpope/vim-sensible'
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'kien/ctrlp.vim'
-Bundle 'rking/ag.vim'
-Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-Bundle 'ddollar/nerdcommenter'
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle 'vim-scripts/ZoomWin'
-Bundle 'flazz/vim-colorschemes'
-Bundle 'scrooloose/syntastic'
-Bundle 'honza/vim-snippets'
-Bundle 'tpope/vim-surround'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'tpope/vim-rails'
-Bundle 'mattn/emmet-vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'dag/vim2hs'
-Bundle 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-fugitive'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'kien/ctrlp.vim'
+Plugin 'rking/ag.vim'
+Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+Plugin 'ddollar/nerdcommenter'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'vim-scripts/ZoomWin'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'scrooloose/syntastic'
+Plugin 'honza/vim-snippets'
+Plugin 'tpope/vim-surround'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-rails'
+Plugin 'mattn/emmet-vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'dag/vim2hs'
+Plugin 'airblade/vim-gitgutter'
 " Note! YouCompleteMe requires newer version of vim
 " Easiest way is to just install 7.4 from source..
 " instructions: http://michaelheap.com/installing-vim-7-4-on-ubuntu/
-" Bundle 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 
 " ========================================
 " SYNTAX HIGHLIGHTING
@@ -44,15 +44,15 @@ syntax on
 " ========================================
 " GUI/TERM SPECIFIC SETTINGS
 if has("gui_running")
-    colors Tomorrow-Night
-    set background=dark
+    colors solarized
+    set background=light
     set guifont=Ubuntu\ mono\ 11
 
     set guioptions-=m
     set guioptions-=T
 
     set lines=999
-    set columns=999
+    set columns=160
 else
     color Tomorrow-Night
 endif
