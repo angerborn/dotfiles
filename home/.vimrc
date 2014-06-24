@@ -8,9 +8,9 @@ call vundle#rc()
 " ========================================
 " BUNDLES
 
-" let Vundle manage Vundle
+" Let Vundle manage Vundle
 Plugin 'gmarik/vundle'
-
+" Other plugins
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Lokaltog/vim-easymotion'
@@ -21,7 +21,6 @@ Plugin 'ddollar/nerdcommenter'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
-Plugin 'vim-scripts/ZoomWin'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'scrooloose/syntastic'
 Plugin 'honza/vim-snippets'
@@ -40,13 +39,14 @@ Plugin 'airblade/vim-gitgutter'
 " ========================================
 " SYNTAX HIGHLIGHTING
 syntax on
+set t_Co=256
 
 " ========================================
 " GUI/TERM SPECIFIC SETTINGS
 if has("gui_running")
-    colors solarized
-    set background=light
-    set guifont=Ubuntu\ mono\ 11
+    colors Tomorrow-Night
+    set background=dark
+    set guifont=inconsolata
 
     set guioptions-=m
     set guioptions-=T
@@ -83,6 +83,11 @@ set hlsearch
 set incsearch
 set ignorecase smartcase
 
+" ========================================
+" SAVE .SWP FILES IN THE .VIM DIR
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
 
 " ========================================
 " KEY MAPPINGS

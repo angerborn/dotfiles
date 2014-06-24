@@ -50,8 +50,8 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/local/bin:$PATH
 
 # color support terminal
-export TERM=xterm-256color
-alias tmux="TERM=screen-256color-bce tmux"
+export TERM=screen-256color
+alias tmux="tmux -2"
 
 # start z: https://github.com/rupa/z
 . ~/.zz/z.sh
