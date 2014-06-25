@@ -9,6 +9,4 @@
 1. Move .emacs.d to ~/.emacs.d
 2. Start emacs:     $ emacs  
 3. Run (in emacs):  M-x package-refresh-contents  
-4. Restart emacs and say yes to install all packages.  
-
-***note:*** (the repo is locally located in ~/.homesick/repos/angerborn/dotfiles)
+4. Restart emacs and say yes to install all packages.
