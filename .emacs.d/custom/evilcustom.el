@@ -9,8 +9,3 @@
 ;; make evil work with screen lines instead of logical lines
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-
-;; ace jump with space in normal mode
-(define-key evil-normal-state-map (kbd "SPC") 'ace-jump-char-mode)
-;; limit acejump to only use current window
-(setq ace-jump-mode-scope 'window)
