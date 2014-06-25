@@ -1,22 +1,14 @@
-###angerborns dotfiles
+## Install instructions GENERAL
 
-This repo uses homesick to manage dotfiles.
-All files that should be in the ~/ directory shall be placed
-in the /home directory of this repo.
+1. Clone repo
+2. Symlink all files to ~ (ln -s file target)
+3. Enjoy
 
-####To install:
+## Install instructions EMACS
 
-get homesick
-
-    $ gem install homesick
-
-clone angerborn/dotfiles
-
-    $ homesick clone angerborn/dotfiles
-
-symlink all .files
-
-    $ homesick symlink angerborn/dotfiles
-
+1. Move .emacs.d to ~/.emacs.d
+2. Start emacs:     $ emacs  
+3. Run (in emacs):  M-x package-refresh-contents  
+4. Restart emacs and say yes to install all packages.  
 
 ***note:*** (the repo is locally located in ~/.homesick/repos/angerborn/dotfiles)
