@@ -8,6 +8,7 @@
 
 ;; initialize packages
 (package-initialize)
+
 ;; check if the packages are installed; if not, install it.
 (mapc
  (lambda (package)
@@ -18,10 +19,12 @@
    ag
    evil
    key-chord
+   coffee-mode
+
    ;; color themes
-   obsidian-theme
+   busybee-theme
+   ample-theme
    solarized-theme
-   purple-haze-theme
    )
  )
 
@@ -36,13 +39,12 @@
 ;; activate modes
 (evil-mode t)             ;; evil
 (key-chord-mode t)        ;; key-chord
-;;(global-hl-line-mode)     ;; highlight current line
 (winner-mode 1)
 
 ;; Load my own customizations for everything
-(load "evilcustom") ;; customizations for evil
-(load "various")    ;; various settings
-(load "cursorcolor.el") ;; custom color for cursor
+(load "evilcustom")  ;; customizations for evil
+(load "various")     ;; various settings
+(load "cursorcolor") ;; custom color for cursor
 
 ;; Put emacs in front
 (x-focus-frame nil)
@@ -58,7 +60,7 @@
  '(background-color "#fdf6e3")
  '(background-mode light)
  '(cursor-color "#657b83")
- '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "936e5cac238333f251a8d76a2ed96c8191b1e755782c99ea1d7b8c215e66d11e" default)))
+ '(custom-safe-themes (quote ("d8a4e35ee1b219ccb8a8c15cdfed687fcc9d467c9c8b9b93bd25229b026e4703" "fc3ba70e150efbe45db40b4b4886fc75716b4f3b1247a4b96e5be7cfbe4bc9e1" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "936e5cac238333f251a8d76a2ed96c8191b1e755782c99ea1d7b8c215e66d11e" default)))
  '(foreground-color "#657b83"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

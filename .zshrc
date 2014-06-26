@@ -55,3 +55,7 @@ alias tmux="tmux -2"
 
 # start z: https://github.com/rupa/z
 . ~/.zz/z.sh
+
+# Locale
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8

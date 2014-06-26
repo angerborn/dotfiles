@@ -6,7 +6,7 @@
 ;; VISUAL
 
 (setq inhibit-startup-message t)        ;; skip welcome screen
-(load-theme 'purple-haze t)                 ;; load theme to use
+(load-theme 'ample t)                 ;; load theme to use
 (global-linum-mode t)                   ;; activate line numbers
 (tool-bar-mode -1)                      ;; hide toolbar
 (setq-default truncate-lines t)         ;; turn off line wrapping
