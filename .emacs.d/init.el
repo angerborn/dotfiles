@@ -1,8 +1,7 @@
 ;; initialize package handlers
 (require 'package)
 (add-to-list 'package-archives 
-    '("marmalade" .
-      "http://marmalade-repo.org/packages/"))
+    '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
@@ -19,6 +18,8 @@
    ag
    evil
    key-chord
+   flycheck
+   auto-complete
    coffee-mode
 
    ;; color themes
@@ -30,7 +31,7 @@
 
 
 ;; needed by some other package
-(require 'cl)
+;;;(require 'cl)
 
 ;; add special directories to load path
 (add-to-list 'load-path "~/.emacs.d/custom/")
