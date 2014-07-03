@@ -1,14 +1,14 @@
 ## angerborns .dotfiles
 
-### Install instructions GENERAL
+### General Install
 
-1. Clone repo
-2. Symlink wanted files to ~ (ln -s file target)
-3. Enjoy
+1. Clone: $ git clone git@github.com:angerborn/dotfiles ~/.dotfiles
+2. $ cd ~/.dotfiles
+3. Symlink w/ stow: $ stow (vim | tmux | etc..)
+4. Done
 
 ### Install instructions EMACS
 
-1. Symlink .emacs.d to ~/.emacs.d
-2. Start emacs
-3. Do: M-x package-refresh-contents  
-4. Restart emacs and say yes all packages.  
+1. Follow General Install
+2. Start emacs && M-x package-refresh-contents  
+3. Restart emacs && Yes to all
