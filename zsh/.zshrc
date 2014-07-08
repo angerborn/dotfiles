@@ -40,7 +40,7 @@ CASE_SENSITIVE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(common-aliases git vi-mode meteor vundle web-search z zsh_reload)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -53,9 +53,10 @@ export PATH=/usr/local/bin:$PATH
 export TERM=screen-256color
 alias tmux="tmux -2"
 
-# start z: https://github.com/rupa/z
-. ~/.zz/z.sh
-
 # Locale
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+
+# Easy edit vimrc
+alias vimrc="vim ~/.vimrc"
+alias vim="/usr/local/Cellar/vim/7.4.335/bin/vim"

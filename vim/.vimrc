@@ -9,42 +9,36 @@ call vundle#rc()
 " BUNDLES
 
 " Let Vundle manage Vundle
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
+
 " Other plugins
-Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-fugitive'
-Plugin 'Lokaltog/vim-easymotion'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
-Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 Plugin 'ddollar/nerdcommenter'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'flazz/vim-colorschemes'
 Plugin 'scrooloose/syntastic'
-Plugin 'honza/vim-snippets'
-Plugin 'tpope/vim-surround'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tpope/vim-rails'
 Plugin 'mattn/emmet-vim'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'dag/vim2hs'
 Plugin 'airblade/vim-gitgutter'
-" Note! YouCompleteMe requires newer version of vim
-" Easiest way is to just install 7.4 from source..
-" instructions: http://michaelheap.com/installing-vim-7-4-on-ubuntu/
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Shougo/neocomplcache'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+
+" Themes
+Plugin 'flazz/vim-colorschemes'
 
 " ========================================
 " SYNTAX HIGHLIGHTING
 syntax on
 set t_Co=256
 
-" ========================================
 " GUI/TERM SPECIFIC SETTINGS
 if has("gui_running")
-    colors Tomorrow-Night
+    colorscheme jellybeans
     set background=dark
     set guifont=inconsolata
 
@@ -52,50 +46,69 @@ if has("gui_running")
     set guioptions-=T
 
     set lines=999
-    set columns=160
+    set columns=600
 else
-    color Tomorrow-Night
+    colorscheme jellybeans
 endif
 
 " ========================================
-" TABS AND WHITESPACES
+" VARIOUS
+" tabs and whitespaces
 filetype plugin indent on
 set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set autoindent
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set laststatus=2
 set smarttab
-set laststatus=4
 
-" ========================================
-" LINE NUMBERING AND HIGHLIGHTING
+" line numbering and highlighting
 set cursorline
 set number          " show numbers
 set relativenumber  " relative line numbering
 
-" ========================================
-" DO NOT WRAP LINES
+" do not wrap lines
 set nowrap
 
-" ========================================
-" SEARCH SETTINGS
+" search settings
 set hlsearch
 set incsearch
 set ignorecase smartcase
 
-" ========================================
-" SAVE .SWP FILES IN THE .VIM DIR
+" save .swp files in the .vim dir
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 
+set scrolloff=10
+
+" briefly show matching bracket when new is inserted
+set showmatch
+
+" handle buffers better
+set hidden
+
+" clipboard
+set clipboard=unnamed
+
+" show trailing whitespaces
+set list
+set listchars=tab:\ \             " a tab should display as ' '
+set listchars+=trail:.            " show trailing spaces as dots
+set listchars+=extends:>          " Show > instead of linewrap
+
+" clear the search buffer when hitting return
+function! MapCR()
+  nnoremap <cr> :nohlsearch<cr>
+endfunction
+call MapCR()
+
 " ========================================
 " KEY MAPPINGS
-let mapleader=","
-map <leader>b :CtrlPBuffer<cr>
-map <C-b> :CtrlPBuffer<cr>
+map <space> <leader>
 imap jj <esc>
-imap <c-c> <esc>
+map <C-b> :CtrlPBuffer<cr>
 
 " move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -104,71 +117,49 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
 " ========================================
-" MISC SETTINGS
-
-" show more context when scrolling
-set scrolloff=8
-
-" briefly show matching bracket when new is inserted
-set showmatch
-
-" handle buffers better
-set hidden
-
-" show trailing whitespaces
-set list
-set listchars=tab:\ \             " a tab should display as ' '
-set listchars+=trail:.            " show trailing spaces as dots
-set listchars+=extends:>          " Show > instead of linewrap
-
-
-" ==========BELOW=========================
-" shamelessly 'stolen' from garybernhardt
-" https://github.com/garybernhardt/dotfiles/
-" ========================================
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CUSTOM AUTOCMDS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup vimrcEx
-  " Clear all autocmds in the group
-  autocmd!
-  autocmd FileType text setlocal textwidth=78
-  " Jump to last cursor position unless it's invalid or in an event handler
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-  "for ruby, autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
-  autocmd FileType python set sw=4 sts=4 et
-
-  autocmd! BufRead,BufNewFile *.sass setfiletype sass 
-
-  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
-  autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
-
-  " Leave the return key alone when in command line windows, since it's used
-  " to run commands there.
-  autocmd! CmdwinEnter * :unmap <cr>
-  autocmd! CmdwinLeave * :call MapCR()
-augroup END
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" STATUS LINE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:set statusline=%<%f\ (%{&ft})\ %{fugitive#statusline()}\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MISC KEY MAPS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Insert a hash rocket with <c-l>
-imap <c-l> <space>=><space>
-" Clear the search buffer when hitting return
-function! MapCR()
-  nnoremap <cr> :nohlsearch<cr>
+" NEOCOMPLCACHE SETTINGS
+" Activate neocomplcache
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase
+let g:neocomplcache_enable_smart_case = 1
+" Set minimum length for completions
+let g:neocomplcache_min_syntax_length = 3
+" Enable fuzzy
+let g:neocomplcache_enable_fuzzy_completion = 1
+"" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
 endfunction
-call MapCR()
-nnoremap <leader><leader> <c-^>
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+"<TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+
+" ========================================
+" NEOSNIPPET
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" " SuperTab like snippets behavior.
+"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"\ "\<Plug>(neosnippet_expand_or_jump)"
+"\: pumvisible() ? "\<C-n>" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"\ "\<Plug>(neosnippet_expand_or_jump)"
+"\: "\<TAB>"
+" " For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
