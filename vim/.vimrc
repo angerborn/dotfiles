@@ -4,7 +4,6 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
-
 " ========================================
 " BUNDLES
 
@@ -17,16 +16,19 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'bling/vim-airline'
-Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
-Plugin 'ddollar/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
 Plugin 'mattn/emmet-vim'
+Plugin 'kien/ctrlp.vim'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Shougo/neocomplcache'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/vimproc.vim'
 
 " Themes
 Plugin 'flazz/vim-colorschemes'
@@ -57,16 +59,24 @@ endif
 filetype plugin indent on
 set expandtab
 set autoindent
-set tabstop=2
+set tabstop=8
 set shiftwidth=2
 set softtabstop=2
-set laststatus=2
 set smarttab
+set laststatus=2
 
-" line numbering and highlighting
-set cursorline
+" backspace through anything in insert mode
+set backspace=indent,eol,start
+
+" line numbering
 set number          " show numbers
 set relativenumber  " relative line numbering
+
+" highlight current line
+set cursorline
+
+" dont show -- INSERT -- etc
+set noshowmode
 
 " do not wrap lines
 set nowrap
@@ -75,21 +85,41 @@ set nowrap
 set hlsearch
 set incsearch
 set ignorecase smartcase
+set mousemodel=extend
 
 " save .swp files in the .vim dir
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
+"set backupdir=~/.vim/backup//
+"set directory=~/.vim/swap//
+"set undodir=~/.vim/undo//
+" dont make backups and swaps
 
+set nobackup
+set noswapfile
+set nowritebackup
+
+" always show a few extra lines
 set scrolloff=10
+" scroll 3 lines at a time
+set scrolljump=3
+
+" give a little space at end of line
+set virtualedit=onemore
 
 " briefly show matching bracket when new is inserted
 set showmatch
 
-" handle buffers better
+" dont close buffers when in background
 set hidden
 
-" clipboard
+" set current directory to current file
+set autochdir
+
+" auto update file on change
+set autoread
+" auto save on file change
+set autowriteall
+
+" play nice with system clipboard
 set clipboard=unnamed
 
 " show trailing whitespaces
@@ -98,17 +128,17 @@ set listchars=tab:\ \             " a tab should display as ' '
 set listchars+=trail:.            " show trailing spaces as dots
 set listchars+=extends:>          " Show > instead of linewrap
 
-" clear the search buffer when hitting return
-function! MapCR()
-  nnoremap <cr> :nohlsearch<cr>
-endfunction
-call MapCR()
+" show wildmenu
+set wildmenu
+set wildmode=longest:full,full
+
+" show incomplete commands
+set showcmd
 
 " ========================================
 " KEY MAPPINGS
 map <space> <leader>
 imap jj <esc>
-map <C-b> :CtrlPBuffer<cr>
 
 " move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -116,8 +146,13 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
+" nerdtree
+map <C-n> :NERDTreeToggle<CR>
+
 " ========================================
 " NEOCOMPLCACHE SETTINGS
+" Deactivate autocomplpop
+let g:acp_enableAtStartUp = 0
 " Activate neocomplcache
 let g:neocomplcache_enable_at_startup = 1
 " Use smartcase
@@ -142,7 +177,6 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 "<TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-
 " ========================================
 " NEOSNIPPET
 " Plugin key-mappings.
@@ -161,16 +195,24 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RENAME CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
+" ========================================
+" UNITE BINDINGS
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"nnoremap <C-p> :Unite -start-insert file_rec/async<cr>
+
+" ========================================
+" CTRLP
+"nnoremap <C-p> :CtrlP<cr>
+"nnoremap <Leader>f :CtrlP !pwd<cr>
+let g:ctrlp_working_path_mode='ra'
+
+" ========================================
+" Airline
+let g:airline#extensions#tabline#enabled = 1
+
+" ========================================
+" clear the search buffer when hitting return
+function! MapCR()
+  nnoremap <cr> :nohlsearch<cr>
 endfunction
-map <leader>n :call RenameFile()<cr>
+call MapCR()
