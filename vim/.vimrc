@@ -51,7 +51,7 @@ if has("gui_running")
     set columns=600
 endif
 
-colorscheme jellybeans
+colorscheme molokai
 
 " ========================================
 " VARIOUS
@@ -169,6 +169,7 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " ========================================
 " CTRLP
 let g:ctrlp_working_path_mode='ra'
+nnoremap <C-b> :CtrlPBuffer <cr>
 
 " ========================================
 " Airline
@@ -184,3 +185,7 @@ function! MapCR()
   nnoremap <cr> :nohlsearch<cr>
 endfunction
 call MapCR()
+
+" ========================================
+" expand %% to current file path in command mode
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
