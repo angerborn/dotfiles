@@ -43,7 +43,6 @@ set t_Co=256
 if has("gui_running")
     colorscheme jellybeans
     set background=dark
-    set guifont=inconsolata
 
     set guioptions-=m
     set guioptions-=T
@@ -113,7 +112,7 @@ set showmatch
 set hidden
 
 " set current directory to current file
-set autochdir
+"set autochdir
 
 " auto update file on change
 set autoread
@@ -210,6 +209,10 @@ let g:ctrlp_working_path_mode='ra'
 " ========================================
 " Airline
 let g:airline#extensions#tabline#enabled = 1
+
+" ========================================
+" Ag
+let g:agprg="ag --column --smart-case"
 
 " ========================================
 " clear the search buffer when hitting return
