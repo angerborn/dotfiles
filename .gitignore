@@ -1,2 +1,4 @@
 emacs/.emacs.d/elpa/
 \#*#
+**/custom.el
+**/ac-comphist.dat

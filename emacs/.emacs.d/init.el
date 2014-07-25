@@ -35,6 +35,13 @@
 (require 'init-various)
 
 ;;----------------------------------------------------------------------------
+;; Allow access from emacsclient
+;;----------------------------------------------------------------------------
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
+;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

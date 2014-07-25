@@ -2,7 +2,6 @@
 ;; VISUAL
 ;;--------------------------------------------------------------------------------
 (setq inhibit-startup-message t)
-(load-theme 'wombat t)
 (global-linum-mode t)
 (tool-bar-mode -1)
 (setq-default truncate-lines t)
@@ -24,5 +23,10 @@
 ;; EMACS SAVEFILES (*.~)
 ;;--------------------------------------------------------------------------------
 (setq make-backup-files nil)
+
+;;--------------------------------------------------------------------------------
+;; FRAME SIZE
+;;--------------------------------------------------------------------------------
+(when window-system (set-frame-size (selected-frame) 120 80))
 
 (provide 'init-various)
