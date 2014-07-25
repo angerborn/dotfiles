@@ -34,76 +34,59 @@ Plugin 'tpope/vim-unimpaired'
 " Themes
 Plugin 'flazz/vim-colorschemes'
 
+filetype plugin indent on
+
 " ========================================
 " SYNTAX HIGHLIGHTING
 syntax on
 set t_Co=256
 
+" ========================================
 " GUI/TERM SPECIFIC SETTINGS
 if has("gui_running")
-    colorscheme jellybeans
     set background=dark
-
     set guioptions-=m
     set guioptions-=T
-
     set lines=999
     set columns=600
-else
-    colorscheme jellybeans
 endif
+
+colorscheme jellybeans
 
 " ========================================
 " VARIOUS
-" tabs and whitespaces
-filetype plugin indent on
 set expandtab
 set autoindent
-set tabstop=8
 set shiftwidth=2
-set softtabstop=2
+set softtabstop=-1
 set smarttab
 set laststatus=2
 
 " backspace through anything in insert mode
 set backspace=indent,eol,start
 
-" line numbering
-set number          " show numbers
-set relativenumber  " relative line numbering
-
-" highlight current line
+" lines
+set number
+set relativenumber
 set cursorline
+set nowrap
 
 " dont show -- INSERT -- etc
 set noshowmode
 
-" do not wrap lines
-set nowrap
-
-" search settings
+" search
 set hlsearch
 set incsearch
 set ignorecase smartcase
 set mousemodel=extend
 
-" save .swp files in the .vim dir
-"set backupdir=~/.vim/backup//
-"set directory=~/.vim/swap//
-"set undodir=~/.vim/undo//
 " dont make backups and swaps
-
 set nobackup
 set noswapfile
 set nowritebackup
 
 " always show a few extra lines
 set scrolloff=10
-" scroll 3 lines at a time
-set scrolljump=3
-
-" give a little space at end of line
-set virtualedit=onemore
 
 " briefly show matching bracket when new is inserted
 set showmatch
@@ -111,13 +94,8 @@ set showmatch
 " dont close buffers when in background
 set hidden
 
-" set current directory to current file
-"set autochdir
-
 " auto update file on change
 set autoread
-" auto save on file change
-set autowriteall
 
 " play nice with system clipboard
 set clipboard=unnamed
@@ -146,23 +124,19 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
-" nerdtree
+" ========================================
+" NerdTree SETTINGS
 map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeHijackNetrw = 0
 
 " ========================================
 " NEOCOMPLCACHE SETTINGS
 " Deactivate autocomplpop
 let g:acp_enableAtStartUp = 0
-" Activate neocomplcache
 let g:neocomplcache_enable_at_startup = 1
-" Use smartcase
 let g:neocomplcache_enable_smart_case = 1
-" Set minimum length for completions
 let g:neocomplcache_min_syntax_length = 3
-" Enable fuzzy
 let g:neocomplcache_enable_fuzzy_completion = 1
-"" Recommended key-mappings.
-" <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
   return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
@@ -183,14 +157,6 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-" " SuperTab like snippets behavior.
-"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)"
-"\: pumvisible() ? "\<C-n>" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)"
-"\: "\<TAB>"
-" " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
@@ -202,8 +168,6 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 " ========================================
 " CTRLP
-"nnoremap <C-p> :CtrlP<cr>
-"nnoremap <Leader>f :CtrlP !pwd<cr>
 let g:ctrlp_working_path_mode='ra'
 
 " ========================================

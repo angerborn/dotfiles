@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="dieter.modified"
+ZSH_THEME="dieter"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -59,5 +59,4 @@ export LANG=en_US.UTF-8
 
 # Easy edit vimrc
 alias vimrc="vim ~/.vimrc"
-alias vim="/usr/local/Cellar/vim/7.4.335/bin/vim"
 alias em="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n"
