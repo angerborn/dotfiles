@@ -4,8 +4,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
-" ========================================
-" BUNDLES
+" {{{ Plugins
 
 " Let Vundle manage Vundle
 Plugin 'gmarik/Vundle.vim'
@@ -33,27 +32,32 @@ Plugin 'tpope/vim-unimpaired'
 " Themes
 Plugin 'flazz/vim-colorschemes'
 
+" }}}
+
 filetype plugin indent on
 
-" ========================================
-" SYNTAX HIGHLIGHTING
-syntax on
-set t_Co=256
+" {{{ Gui/term specific settings
 
-" ========================================
-" GUI/TERM SPECIFIC SETTINGS
 if has("gui_running")
-    set background=dark
     set guioptions-=m
     set guioptions-=T
     set lines=999
     set columns=600
 endif
 
+" }}}
+
+" {{{ Colors
+
+syntax on
+set t_Co=256
+set background=dark
 colorscheme gruvbox
 
-" ========================================
-" VARIOUS
+" }}}
+
+" {{{ Various
+
 set expandtab
 set autoindent
 set shiftwidth=2
@@ -70,7 +74,7 @@ set relativenumber
 set cursorline
 set nowrap
 
-" dont show -- INSERT -- etc
+" dont show -- insert -- etc
 set noshowmode
 
 " search
@@ -103,7 +107,7 @@ set clipboard=unnamed
 set list
 set listchars=tab:\ \             " a tab should display as ' '
 set listchars+=trail:.            " show trailing spaces as dots
-set listchars+=extends:>          " Show > instead of linewrap
+set listchars+=extends:>          " show > instead of linewrap
 
 " show wildmenu
 set wildmenu
@@ -113,9 +117,10 @@ set wildignore+=*.pyc,*.out,*.o
 " show incomplete commands
 set showcmd
 
+" }}}
 
-" ========================================
-" GENERAL KEY MAPPINGS
+" {{{ Keymaps
+
 map , <leader>
 imap jj <esc>
 
@@ -131,14 +136,17 @@ nnoremap <CR> :nohlsearch<CR>:<BS>
 nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 
+" }}}
 
-" ========================================
-" NerdTree SETTINGS
+" {{{ NerdTree
+
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeHijackNetrw = 0
 
-" ========================================
-" NEOCOMPLCACHE SETTINGS
+" }}}
+
+" {{{ Neocomplcache
+
 " Deactivate autocomplpop
 let g:acp_enableAtStartUp = 0
 let g:neocomplcache_enable_at_startup = 1
@@ -159,9 +167,10 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 "<TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
+" }}}
 
-" ========================================
-" NEOSNIPPET
+" {{{ Neosnippet
+
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -170,13 +179,16 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-" ========================================
-" UNITE BINDINGS
+" }}}
+
+" {{{ Unite
+
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "nnoremap <C-p> :Unite -start-insert file_rec/async<CR>
 
-" ========================================
-" CTRLP
+" }}}
+
+" {{{ CtrlP
 let g:ctrlp_working_path_mode='ra'
 nnoremap <C-b> :CtrlPBuffer <CR>
 let g:ctrlp_custom_ignore = {
@@ -196,3 +208,7 @@ let g:agprg="ag --column --smart-case"
 " ========================================
 " expand %% to current file path in command mode
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
+
+" }}}
+
+" vim: sw=4 ts=4 foldmethod=marker
