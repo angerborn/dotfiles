@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="dieter"
+ZSH_THEME="dieter.modified"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -50,7 +50,7 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/local/bin:$PATH
 
 # color support terminal
-export TERM=xterm-256color
+export TERM=screen-256color
 alias tmux="tmux -2"
 
 # Locale
@@ -60,3 +60,23 @@ export LANG=en_US.UTF-8
 # Easy edit vimrc
 alias vimrc="vim ~/.vimrc"
 alias em="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n"
+
+# Go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+autoload -Uz compinit compinit
+
+# Make C-z easily close/reopen vim
+# Or other processes put in background
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z

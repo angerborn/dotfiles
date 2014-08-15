@@ -1,23 +1,23 @@
-set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
 
 " {{{ Plugins
+
+call vundle#rc()
 
 " Let Vundle manage Vundle
 Plugin 'gmarik/Vundle.vim'
 
-" Other plugins
 Plugin 'Raimondi/delimitMate'
 Plugin 'Shougo/neocomplcache'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimproc.vim'
-Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'fatih/vim-go'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
@@ -32,18 +32,21 @@ Plugin 'tpope/vim-unimpaired'
 " Themes
 Plugin 'flazz/vim-colorschemes'
 
-" }}}
-
 filetype plugin indent on
+
+" }}}
 
 " {{{ Gui/term specific settings
 
 if has("gui_running")
     set guioptions-=m
+    set guioptions-=r
+    set guioptions-=L
     set guioptions-=T
     set lines=999
     set columns=600
 endif
+
 
 " }}}
 
@@ -51,12 +54,17 @@ endif
 
 syntax on
 set t_Co=256
-set background=dark
-colorscheme gruvbox
+
+if has("gui_running")
+    colorscheme Tomorrow-Night-Bright
+else
+    colorscheme Tomorrow-Night-Bright
+endif
 
 " }}}
 
 " {{{ Various
+set shell=bash
 
 set expandtab
 set autoindent
@@ -67,6 +75,9 @@ set laststatus=2
 
 " backspace through anything in insert mode
 set backspace=indent,eol,start
+
+" play nice with clipboard
+set clipboard=unnamed
 
 " lines
 set number
@@ -100,9 +111,6 @@ set hidden
 " auto update file on change
 set autoread
 
-" play nice with system clipboard
-set clipboard=unnamed
-
 " show trailing whitespaces
 set list
 set listchars=tab:\ \             " a tab should display as ' '
@@ -123,6 +131,8 @@ set showcmd
 
 map , <leader>
 imap jj <esc>
+imap jk <esc>
+imap kj <esc>
 
 " move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -131,10 +141,16 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
 " remove search-hl on enter
-nnoremap <CR> :nohlsearch<CR>:<BS>
+" nnoremap <CR> :nohlsearch<CR>:<BS>
 
+" expand %% to current file path in command mode
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
+
+nnoremap <Leader>vs :vsplit 
+nnoremap <Leader>hs :split 
 nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
+nnoremap <Leader>ez :vsplit ~/.zshrc<CR>
 
 " }}}
 
@@ -153,7 +169,7 @@ let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_enable_fuzzy_completion = 1
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
   return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
 endfunction
@@ -195,20 +211,25 @@ let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn)$'
 	\ }
 
-" ========================================
-" Airline
+" }}}
+
+" {{{ Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
+" }}}
 
-" ========================================
-" Ag
+" {{{ Ag
 let g:agprg="ag --column --smart-case"
+" }}}
 
-" ========================================
-" expand %% to current file path in command mode
-cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
+" {{{ Golang
+let g:go_fmt_autosave = 0
+" }}}
 
+" {{{ delimitmate
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
 " }}}
 
 " vim: sw=4 ts=4 foldmethod=marker
