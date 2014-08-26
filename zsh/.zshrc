@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="dieter.modified"
+ZSH_THEME=""
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -43,6 +43,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git meteor vundle web-search z zsh_reload)
 
 source $ZSH/oh-my-zsh.sh
+source ~/fino.modified.zsh-theme
 
 # ============================================================================
 # MY PERFECT CUSTOMIZATIONS!
