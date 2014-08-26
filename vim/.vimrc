@@ -17,6 +17,7 @@ Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'bling/vim-airline'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'davidhalter/jedi-vim'
 Plugin 'fatih/vim-go'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'kien/ctrlp.vim'
@@ -30,7 +31,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 
 " Themes
-Plugin 'flazz/vim-colorschemes'
+Plugin 'morhetz/gruvbox'
+Plugin 'sjl/badwolf'
+Plugin 'chriskempson/vim-tomorrow-theme'
 
 filetype plugin indent on
 
@@ -56,10 +59,17 @@ syntax on
 set t_Co=256
 
 if has("gui_running")
-    colorscheme Tomorrow-Night-Bright
+    set background=dark
+    colorscheme badwolf
 else
-    colorscheme Tomorrow-Night-Bright
+    colorscheme badwolf
 endif
+
+" }}}
+
+" {{{ Autocommands
+
+autocmd FileType go setlocal noet, sw=8
 
 " }}}
 
@@ -68,7 +78,7 @@ set shell=bash
 
 set expandtab
 set autoindent
-set shiftwidth=2
+set shiftwidth=4
 set softtabstop=-1
 set smarttab
 set laststatus=2
@@ -167,19 +177,28 @@ let g:NERDTreeHijackNetrw = 0
 let g:acp_enableAtStartUp = 0
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_enable_fuzzy_completion = 1
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-endfunction
+let g:neocomplcache_enable_auto_select = 0
+
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+" Use jedi for python files
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#popup_select_first = 0
+let g:jedi#popup_on_dot = 0
+if !exists('g:neocomplcache_force_omni_patterns')
+  let g:neocomplcache_force_omni_patterns = {}
+endif
+let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
 "<TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
@@ -232,4 +251,4 @@ let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 " }}}
 
-" vim: sw=4 ts=4 foldmethod=marker
+" vim: sw=4 ts=4
