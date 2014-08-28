@@ -43,7 +43,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git meteor vundle web-search z zsh_reload)
 
 source $ZSH/oh-my-zsh.sh
-source ~/fino.modified.zsh-theme
+source ~/.angerborn.zsh-theme
 
 # ============================================================================
 # MY PERFECT CUSTOMIZATIONS!
@@ -51,16 +51,12 @@ source ~/fino.modified.zsh-theme
 export PATH=/usr/local/bin:$PATH
 
 # color support terminal
-export TERM=screen-256color
+export TERM=xterm-256color
 alias tmux="tmux -2"
 
 # Locale
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
-# Easy edit vimrc
-alias vimrc="vim ~/.vimrc"
-alias em="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n"
 
 # Go
 export GOPATH=$HOME/go

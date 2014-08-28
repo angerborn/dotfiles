@@ -69,7 +69,7 @@ endif
 
 " {{{ Autocommands
 
-autocmd FileType go setlocal noet, sw=8
+autocmd FileType go setlocal noet sw=8
 
 " }}}
 
