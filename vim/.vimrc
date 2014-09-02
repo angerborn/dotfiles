@@ -14,7 +14,6 @@ Plugin 'Shougo/neocomplcache'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/vimproc.vim'
 Plugin 'bling/vim-airline'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'davidhalter/jedi-vim'
@@ -29,10 +28,13 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'majutsushi/tagbar'
 
 " Themes
 Plugin 'morhetz/gruvbox'
+Plugin 'zefei/cake16'
 Plugin 'sjl/badwolf'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/vim-tomorrow-theme'
 
 filetype plugin indent on
@@ -60,9 +62,9 @@ set t_Co=256
 
 if has("gui_running")
     set background=dark
-    colorscheme badwolf
+    colorscheme gruvbox
 else
-    colorscheme badwolf
+    colorscheme Tomorrow-Night
 endif
 
 " }}}
@@ -141,8 +143,7 @@ set showcmd
 
 map , <leader>
 imap jj <esc>
-imap jk <esc>
-imap kj <esc>
+nnoremap <Leader>, :b #<CR>
 
 " move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -151,13 +152,11 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
 " remove search-hl on enter
-" nnoremap <CR> :nohlsearch<CR>:<BS>
+nnoremap <CR> :let @/ = ""<CR><CR>
 
 " expand %% to current file path in command mode
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
 
-nnoremap <Leader>vs :vsplit 
-nnoremap <Leader>hs :split 
 nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 nnoremap <Leader>ez :vsplit ~/.zshrc<CR>
@@ -225,11 +224,11 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 " {{{ CtrlP
 let g:ctrlp_working_path_mode='ra'
-nnoremap <C-b> :CtrlPBuffer <CR>
+nnoremap <Leader>b :CtrlPBuffer <CR>
+nnoremap <Leader>r :CtrlPMRUFiles <CR>
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn)$'
 	\ }
-
 " }}}
 
 " {{{ Airline
@@ -249,6 +248,41 @@ let g:go_fmt_autosave = 0
 " {{{ delimitmate
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
+" }}}
+
+" {{{ Tagbar
+nnoremap <Leader>t :TagbarToggle<CR>
+let g:tagbar_left = 1
+
+" tags for Go support, taken from
+" https://github.com/jstemmer/gotags
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
 " }}}
 
 " vim: sw=4 ts=4
