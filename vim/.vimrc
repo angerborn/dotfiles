@@ -9,17 +9,16 @@ call vundle#rc()
 " Let Vundle manage Vundle
 Plugin 'gmarik/Vundle.vim'
 
+" Plugins
 Plugin 'Raimondi/delimitMate'
-Plugin 'Shougo/neocomplcache'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'Shougo/unite.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'ZoomWin'
 Plugin 'bling/vim-airline'
-Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'davidhalter/jedi-vim'
-Plugin 'fatih/vim-go'
-Plugin 'kchmck/vim-coffee-script'
+Plugin 'gregsexton/gitv'
 Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
@@ -28,20 +27,14 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'majutsushi/tagbar'
 
 " Themes
-Plugin 'morhetz/gruvbox'
-Plugin 'zefei/cake16'
 Plugin 'sjl/badwolf'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'chriskempson/base16-vim'
 
 filetype plugin indent on
 
-" }}}
-
-" {{{ Gui/term specific settings
+" Gui (mvim/gvim) specific settings
 
 if has("gui_running")
     set guioptions-=m
@@ -50,32 +43,29 @@ if has("gui_running")
     set guioptions-=T
     set lines=999
     set columns=600
+    set guifont=Monaco:h12
 endif
 
-
-" }}}
-
-" {{{ Colors
+" Colors
 
 syntax on
 set t_Co=256
 
 if has("gui_running")
     set background=dark
-    colorscheme gruvbox
+    colorscheme base16-chalk
 else
-    colorscheme Tomorrow-Night
+    set background=dark
+    colorscheme base16-default
 endif
 
-" }}}
-
-" {{{ Autocommands
+" Autocommands
 
 autocmd FileType go setlocal noet sw=8
+autocmd FileType coffee setlocal sw=2
+autocmd FileType grd setlocal sw=2
 
-" }}}
-
-" {{{ Various
+" Various
 set shell=bash
 
 set expandtab
@@ -137,9 +127,7 @@ set wildignore+=*.pyc,*.out,*.o
 " show incomplete commands
 set showcmd
 
-" }}}
-
-" {{{ Keymaps
+" Keymaps
 
 map , <leader>
 imap jj <esc>
@@ -161,128 +149,53 @@ nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 nnoremap <Leader>ez :vsplit ~/.zshrc<CR>
 
-" }}}
-
-" {{{ NerdTree
+" NerdTree
 
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeHijackNetrw = 0
-
-" }}}
-
-" {{{ Neocomplcache
-
-" Deactivate autocomplpop
-let g:acp_enableAtStartUp = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_fuzzy_completion = 1
-let g:neocomplcache_enable_auto_select = 0
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
-" Use jedi for python files
-autocmd FileType python setlocal omnifunc=jedi#completions
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#popup_select_first = 0
-let g:jedi#popup_on_dot = 0
-if !exists('g:neocomplcache_force_omni_patterns')
-  let g:neocomplcache_force_omni_patterns = {}
-endif
-let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-"<TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" }}}
-
-" {{{ Neosnippet
-
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-" }}}
-
-" {{{ Unite
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"nnoremap <C-p> :Unite -start-insert file_rec/async<CR>
-
-" }}}
-
-" {{{ CtrlP
+" CtrlP
 let g:ctrlp_working_path_mode='ra'
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_max_files = 0
 nnoremap <Leader>b :CtrlPBuffer <CR>
 nnoremap <Leader>r :CtrlPMRUFiles <CR>
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn)$'
 	\ }
-" }}}
 
-" {{{ Airline
+" Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
-" }}}
 
-" {{{ Ag
-let g:agprg="ag --column --smart-case"
-" }}}
+" Ag
+let g:ag_prg="ag --column --smart-case"
 
-" {{{ Golang
-let g:go_fmt_autosave = 0
-" }}}
-
-" {{{ delimitmate
+" delimitmate
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
-" }}}
+let g:delimitMate_jump_expansion = 1
 
-" {{{ Tagbar
+" Tagbar
 nnoremap <Leader>t :TagbarToggle<CR>
 let g:tagbar_left = 1
 
-" tags for Go support, taken from
-" https://github.com/jstemmer/gotags
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
-" }}}
+"Gitv stuff
+nnoremap <leader>gv :Gitv<cr>
+nnoremap <leader>gV :Gitv!<cr>
+" Please don't overwrite my bindings gitv
+let g:Gitv_DoNotMapCtrlKey = 1
+
+" fix for android max project
+let g:syntastic_mode_map = {
+            \ "mode": "active",
+            \ "active_filetypes": [],
+            \ "passive_filetypes": ["java"] }
 
 " vim: sw=4 ts=4
