@@ -16,7 +16,7 @@ Plugin 'ZoomWin'
 Plugin 'bling/vim-airline'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'gregsexton/gitv'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'rking/ag.vim'
@@ -27,10 +27,11 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'fatih/vim-go'
 
 " Themes
 Plugin 'sjl/badwolf'
-Plugin 'chriskempson/base16-vim'
+Plugin 'angerborn/base16-vim'
 
 filetype plugin indent on
 
@@ -43,7 +44,7 @@ if has("gui_running")
     set guioptions-=T
     set lines=999
     set columns=600
-    set guifont=Monaco:h12
+    set guifont=Menlo:h11
 endif
 
 " Colors
@@ -53,10 +54,10 @@ set t_Co=256
 
 if has("gui_running")
     set background=dark
-    colorscheme base16-chalk
+    colorscheme base16-darktooth
 else
     set background=dark
-    colorscheme base16-default
+    colorscheme badwolf
 endif
 
 " Autocommands
@@ -84,8 +85,8 @@ set clipboard=unnamed
 " lines
 set number
 set relativenumber
-set cursorline
 set nowrap
+set cursorline
 
 " dont show -- insert -- etc
 set noshowmode
@@ -145,9 +146,12 @@ nnoremap <CR> :let @/ = ""<CR><CR>
 " expand %% to current file path in command mode
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
 
+" some leader mappings
 nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 nnoremap <Leader>ez :vsplit ~/.zshrc<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+
 
 " NerdTree
 
@@ -189,13 +193,29 @@ let g:tagbar_left = 1
 "Gitv stuff
 nnoremap <leader>gv :Gitv<cr>
 nnoremap <leader>gV :Gitv!<cr>
+
 " Please don't overwrite my bindings gitv
 let g:Gitv_DoNotMapCtrlKey = 1
 
-" fix for android max project
-let g:syntastic_mode_map = {
-            \ "mode": "active",
-            \ "active_filetypes": [],
-            \ "passive_filetypes": ["java"] }
+" vim-go stuff
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+au FileType go nmap <Leader>s <Plug>(go-implements)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>e <Plug>(go-rename)
+
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
+
+" Close YouCompleteMe preview window after insertion
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " vim: sw=4 ts=4
