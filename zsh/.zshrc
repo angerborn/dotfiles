@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME=""
+# ZSH_THEME=""
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -53,6 +53,9 @@ export PATH=/usr/local/bin:$PATH
 # color support terminal
 export TERM=xterm-256color
 alias tmux="tmux -2"
+
+alias e='emacsclient -t'
+alias ec='emacsclient -c'
 
 # Locale
 export LC_ALL=en_US.UTF-8
