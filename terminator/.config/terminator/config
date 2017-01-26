@@ -3,6 +3,10 @@
   inactive_color_offset = 0.79
   scroll_tabbar = True
 [keybindings]
+  go_down = <Primary>j
+  go_left = <Primary>h
+  go_right = <Primary>l
+  go_up = <Primary>k
   hide_window = F12
   next_tab = <Shift><Alt>braceright
   prev_tab = <Shift><Alt>braceleft
@@ -26,7 +30,7 @@
     background_darkness = 0.94
     background_image = None
     background_type = transparent
-    font = Source Code Pro 10
+    font = Ubuntu Mono 11
     foreground_color = "#ffffff"
     login_shell = True
     palette = "#000000:#cc0000:#4e9a06:#c4a000:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#ef2929:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"

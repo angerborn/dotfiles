@@ -49,6 +49,7 @@ source ~/.angerborn.zsh-theme
 # MY PERFECT CUSTOMIZATIONS!
 
 export PATH=/usr/local/bin:$PATH
+export PATH=/home/felixa/code/scripts:$PATH
 
 # color support terminal
 export TERM=xterm-256color
@@ -56,6 +57,7 @@ alias tmux="tmux -2"
 
 alias e='emacsclient -t'
 alias ec='emacsclient -c'
+alias ag='ag --noheading --color-match="0;42" --color-path="0;36"'
 
 # Locale
 export LC_ALL=en_US.UTF-8
