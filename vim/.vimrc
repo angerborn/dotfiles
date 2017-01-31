@@ -1,37 +1,42 @@
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim/
-
 " {{{ Plugins
 
-call vundle#rc()
+if has('nvim')
+call plug#begin('~/.local/shared/nvim/plugged')
+else
+call plug#begin('~/.vim/plugged')
+end
 
-" Let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
+" Plugs
+Plug 'Raimondi/delimitMate'
+Plug 'ZoomWin'
+Plug 'bling/vim-airline'
+Plug 'davidhalter/jedi-vim'
+Plug 'gregsexton/gitv'
+Plug 'majutsushi/tagbar'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 
-" Plugins
-Plugin 'Raimondi/delimitMate'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'ZoomWin'
-Plugin 'bling/vim-airline'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'gregsexton/gitv'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'rking/ag.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'fatih/vim-go'
+" Fzf fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" Deoplete autocompletion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Themes
-Plugin 'sjl/badwolf'
-Plugin 'angerborn/base16-vim'
+Plug 'sjl/badwolf'
+Plug 'angerborn/vim-colorschemes'
+
+call plug#end()
 
 filetype plugin indent on
 
@@ -54,7 +59,7 @@ set t_Co=256
 
 if has("gui_running")
     set background=dark
-    colorscheme base16-darktooth
+    colorscheme spacegray
 else
     set background=dark
     colorscheme badwolf
@@ -130,9 +135,8 @@ set showcmd
 
 " Keymaps
 
-map , <leader>
+map <Space> <leader>
 imap jj <esc>
-nnoremap <Leader>, :b #<CR>
 
 " move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -163,16 +167,6 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
-" CtrlP
-let g:ctrlp_working_path_mode='ra'
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_max_files = 0
-nnoremap <Leader>b :CtrlPBuffer <CR>
-nnoremap <Leader>r :CtrlPMRUFiles <CR>
-let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/]\.(git|hg|svn)$'
-	\ }
-
 " Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
@@ -194,28 +188,37 @@ let g:tagbar_left = 1
 nnoremap <leader>gv :Gitv<cr>
 nnoremap <leader>gV :Gitv!<cr>
 
+" Deoplete
+let g:deoplete#enable_at_startup = 1 " Enable at startup
+let g:deoplete#enable_smart_case = 1 " Use smart case
+
+" Deocomplete tab completion
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ neocomplete#start_manual_complete()
+
+function! s:check_back_space()
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+" Fzf
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+" Custom normal mode mappings
+nmap <leader>ff :Files<cr>
+nmap <leader>fc :Colors<cr>
+nmap <leader>fb :Buffers<cr>
+nmap <leader>fh :History<cr>
+
+
 " Please don't overwrite my bindings gitv
 let g:Gitv_DoNotMapCtrlKey = 1
-
-" vim-go stuff
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-au FileType go nmap <Leader>s <Plug>(go-implements)
-au FileType go nmap <Leader>i <Plug>(go-info)
-au FileType go nmap <Leader>e <Plug>(go-rename)
-
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-let g:go_list_type = "quickfix"
-
-" Close YouCompleteMe preview window after insertion
-let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " vim: sw=4 ts=4

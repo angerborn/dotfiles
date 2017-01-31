@@ -2,8 +2,11 @@ filetype off
 
 " {{{ Plugins
 
-" Let Vundle manage Vundle
+if has('nvim')
 call plug#begin('~/.local/shared/nvim/plugged')
+else
+call plug#begin('~/.vim/plugged')
+end
 
 " Plugs
 Plug 'Raimondi/delimitMate'
