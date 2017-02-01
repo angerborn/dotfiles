@@ -3,27 +3,29 @@ filetype off
 " {{{ Plugins
 
 if has('nvim')
-call plug#begin('~/.local/shared/nvim/plugged')
+    call plug#begin('~/.local/shared/nvim/plugged')
 else
-call plug#begin('~/.vim/plugged')
+    call plug#begin('~/.vim/plugged')
 end
 
 " Plugs
 Plug 'Raimondi/delimitMate'
 Plug 'ZoomWin'
 Plug 'bling/vim-airline'
-Plug 'davidhalter/jedi-vim'
 Plug 'gregsexton/gitv'
 Plug 'majutsushi/tagbar'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+
+Plug 'Neomake/Neomake'
+
+Plug 'sheerun/vim-polyglot'
 
 " Fzf fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -59,10 +61,10 @@ set t_Co=256
 
 if has("gui_running")
     set background=dark
-    colorscheme spacegray
+    colorscheme gruvbox
 else
     set background=dark
-    colorscheme badwolf
+    colorscheme gruvbox
 endif
 
 " Autocommands
@@ -148,12 +150,12 @@ nnoremap <c-l> <c-w>l
 nnoremap <CR> :let @/ = ""<CR><CR>
 
 " expand %% to current file path in command mode
-cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
+cnoremap %% <C-R>=fnameescape(expand('%:p')).'/'<CR>
 
 " some leader mappings
-nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
-nnoremap <Leader>sv :source $MYVIMRC<CR>
-nnoremap <Leader>ez :vsplit ~/.zshrc<CR>
+nnoremap <Leader>ve :vsplit $MYVIMRC<CR>
+nnoremap <Leader>vs :source $MYVIMRC<CR>
+nnoremap <Leader>ze :vsplit ~/.zshrc<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 
 
@@ -220,5 +222,9 @@ nmap <leader>fh :History<cr>
 
 " Please don't overwrite my bindings gitv
 let g:Gitv_DoNotMapCtrlKey = 1
+
+" Workaround for nvim bug
+" https://github.com/neovim/neovim/issues/5999
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
 
 " vim: sw=4 ts=4
