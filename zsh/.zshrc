@@ -40,7 +40,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git meteor vundle web-search z zsh_reload)
+plugins=(git zsh_reload)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.angerborn.zsh-theme
@@ -58,6 +58,7 @@ alias tmux="tmux -2"
 alias e='emacsclient -t'
 alias ec='emacsclient -c'
 alias ag='ag --noheading --color-match="0;42" --color-path="0;36"'
+alias vim='nvim'
 
 # Locale
 export LC_ALL=en_US.UTF-8
@@ -84,3 +85,5 @@ zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
 source ~/.zshrc.local
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
