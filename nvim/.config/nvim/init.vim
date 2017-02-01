@@ -39,6 +39,7 @@ Plug 'zchee/deoplete-jedi' " Python completion for deoplete
 " Themes
 Plug 'sjl/badwolf'
 Plug 'angerborn/vim-colorschemes'
+Plug 'AlessandroYorba/Monrovia'
 
 call plug#end()
 
@@ -60,6 +61,7 @@ endif
 
 syntax on
 set t_Co=256
+set termguicolors
 
 if has("gui_running")
     set background=dark
@@ -147,6 +149,9 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+if has('nvim')
+    nmap <BS> <C-W>h
+endif
 
 " remove search-hl on enter
 nnoremap <CR> :let @/ = ""<CR><CR>
