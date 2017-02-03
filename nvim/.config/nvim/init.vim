@@ -22,6 +22,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'Neomake/Neomake'
 
@@ -33,6 +34,7 @@ Plug 'junegunn/fzf.vim'
 
 " Deoplete autocompletion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi' " Python completion for deoplete
 
 " Themes
 Plug 'sjl/badwolf'
@@ -194,16 +196,6 @@ nnoremap <leader>gV :Gitv!<cr>
 let g:deoplete#enable_at_startup = 1 " Enable at startup
 let g:deoplete#enable_smart_case = 1 " Use smart case
 
-" Deocomplete tab completion
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ neocomplete#start_manual_complete()
-
-function! s:check_back_space()
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
 " Fzf
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -219,6 +211,16 @@ nmap <leader>fc :Colors<cr>
 nmap <leader>fb :Buffers<cr>
 nmap <leader>fh :History<cr>
 
+
+" Deoplete tab completion
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ deoplete#mappings#manual_complete()
+function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
 
 " Please don't overwrite my bindings gitv
 let g:Gitv_DoNotMapCtrlKey = 1
