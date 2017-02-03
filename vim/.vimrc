@@ -3,27 +3,30 @@ filetype off
 " {{{ Plugins
 
 if has('nvim')
-call plug#begin('~/.local/shared/nvim/plugged')
+    call plug#begin('~/.local/shared/nvim/plugged')
 else
-call plug#begin('~/.vim/plugged')
+    call plug#begin('~/.vim/plugged')
 end
 
 " Plugs
 Plug 'Raimondi/delimitMate'
 Plug 'ZoomWin'
 Plug 'bling/vim-airline'
-Plug 'davidhalter/jedi-vim'
 Plug 'gregsexton/gitv'
 Plug 'majutsushi/tagbar'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'christoomey/vim-tmux-navigator'
+
+Plug 'Neomake/Neomake'
+
+Plug 'sheerun/vim-polyglot'
 
 " Fzf fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -31,10 +34,12 @@ Plug 'junegunn/fzf.vim'
 
 " Deoplete autocompletion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi' " Python completion for deoplete
 
 " Themes
 Plug 'sjl/badwolf'
 Plug 'angerborn/vim-colorschemes'
+Plug 'AlessandroYorba/Monrovia'
 
 call plug#end()
 
@@ -56,13 +61,14 @@ endif
 
 syntax on
 set t_Co=256
+set termguicolors
 
 if has("gui_running")
     set background=dark
-    colorscheme spacegray
+    colorscheme gruvbox
 else
     set background=dark
-    colorscheme badwolf
+    colorscheme gruvbox
 endif
 
 " Autocommands
@@ -143,17 +149,20 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+if has('nvim')
+    nmap <BS> <C-W>h
+endif
 
 " remove search-hl on enter
 nnoremap <CR> :let @/ = ""<CR><CR>
 
 " expand %% to current file path in command mode
-cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
+cnoremap %% <C-R>=fnameescape(expand('%:p')).'/'<CR>
 
 " some leader mappings
-nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
-nnoremap <Leader>sv :source $MYVIMRC<CR>
-nnoremap <Leader>ez :vsplit ~/.zshrc<CR>
+nnoremap <Leader>ve :vsplit $MYVIMRC<CR>
+nnoremap <Leader>vs :source $MYVIMRC<CR>
+nnoremap <Leader>ze :vsplit ~/.zshrc<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 
 
@@ -192,16 +201,6 @@ nnoremap <leader>gV :Gitv!<cr>
 let g:deoplete#enable_at_startup = 1 " Enable at startup
 let g:deoplete#enable_smart_case = 1 " Use smart case
 
-" Deocomplete tab completion
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ neocomplete#start_manual_complete()
-
-function! s:check_back_space()
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
 " Fzf
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -218,7 +217,21 @@ nmap <leader>fb :Buffers<cr>
 nmap <leader>fh :History<cr>
 
 
+" Deoplete tab completion
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ deoplete#mappings#manual_complete()
+function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+
 " Please don't overwrite my bindings gitv
 let g:Gitv_DoNotMapCtrlKey = 1
+
+" Workaround for nvim bug
+" https://github.com/neovim/neovim/issues/5999
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
 
 " vim: sw=4 ts=4
