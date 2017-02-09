@@ -2,8 +2,15 @@
   enabled_plugins = CustomCommandsMenu, TerminalShot, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   inactive_color_offset = 0.79
   scroll_tabbar = True
+  title_font = Sans 7
+  window_state = maximise
 [keybindings]
-  hide_window = F12
+  go_down = <Alt>j
+  go_left = <Alt>h
+  go_right = <Alt>l
+  go_up = <Alt>k
+  hide_window = None
+  layout_launcher = None
   next_tab = <Shift><Alt>braceright
   prev_tab = <Shift><Alt>braceleft
   switch_to_tab_1 = <Alt>1
@@ -16,6 +23,7 @@
   [[default]]
     [[[child1]]]
       parent = window0
+      profile = default
       type = Terminal
     [[[window0]]]
       parent = ""
@@ -23,7 +31,7 @@
 [plugins]
 [profiles]
   [[default]]
-    background_darkness = 0.47
+    background_darkness = 0.67
     background_image = /home/felixa/.config/terminator/background.jpg
     background_type = image
     font = Source Code Pro 10
