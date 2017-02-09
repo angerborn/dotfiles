@@ -23,6 +23,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'vim-scripts/a.vim'
 
 Plug 'Neomake/Neomake'
 
@@ -61,7 +62,7 @@ endif
 
 syntax on
 set t_Co=256
-set termguicolors
+set t_ut=
 
 if has("gui_running")
     set background=dark
@@ -202,6 +203,7 @@ let g:deoplete#enable_at_startup = 1 " Enable at startup
 let g:deoplete#enable_smart_case = 1 " Use smart case
 
 " Fzf
+let g:fzf_command_prefix = 'Fzf'
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
@@ -211,11 +213,12 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 " Custom normal mode mappings
-nmap <leader>ff :Files<cr>
-nmap <leader>fc :Colors<cr>
-nmap <leader>fb :Buffers<cr>
-nmap <leader>fh :History<cr>
-
+nmap <leader>ff :FzfFiles<cr>
+nmap <leader>fc :FzfColors<cr>
+nmap <leader>fl :FzfLines<cr>
+nmap <leader>b :FzfBuffers<cr>
+nmap <leader>r :FzfHistory<cr>
+nmap <leader>fg :FzfGFiles<cr>
 
 " Deoplete tab completion
 inoremap <silent><expr> <TAB>
@@ -233,5 +236,7 @@ let g:Gitv_DoNotMapCtrlKey = 1
 " Workaround for nvim bug
 " https://github.com/neovim/neovim/issues/5999
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+
+source ~/.config/nvim/nvim-local.vim
 
 " vim: sw=4 ts=4
