@@ -34,13 +34,17 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Deoplete autocompletion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi' " Python completion for deoplete
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'zchee/deoplete-jedi' " Python completion for deoplete
+" YouCompleteMe
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+Plug 'davidhalter/jedi'
 
 " Themes
 Plug 'sjl/badwolf'
-Plug 'angerborn/vim-colorschemes'
-Plug 'AlessandroYorba/Monrovia'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -62,14 +66,14 @@ endif
 
 syntax on
 set t_Co=256
-set t_ut=
+set termguicolors
 
 if has("gui_running")
     set background=dark
-    colorscheme gruvbox
+    colorscheme PaperColor
 else
     set background=dark
-    colorscheme gruvbox
+    colorscheme PaperColor
 endif
 
 " Autocommands
@@ -236,6 +240,7 @@ let g:Gitv_DoNotMapCtrlKey = 1
 " Workaround for nvim bug
 " https://github.com/neovim/neovim/issues/5999
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 source ~/.config/nvim/nvim-local.vim
 
