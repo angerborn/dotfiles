@@ -45,10 +45,12 @@ plugins=(git zsh_reload vi-mode fancy-ctrl-z\
 
 source $ZSH/oh-my-zsh.sh
 
-source ~/.angerborn.zsh-theme
-
 # ============================================================================
-# MY PERFECT CUSTOMIZATIONS!
+# Angerborn custom stuff
+# ============================================================================
+
+# source my custom zsh-theme
+[ -f ~/.angerborn.zsh-theme ] && source ~/.angerborn.zsh-theme
 
 export PATH=/usr/local/bin:$PATH
 export PATH=/home/felixa/code/scripts:$PATH
@@ -57,9 +59,6 @@ export PATH=/home/felixa/code/scripts:$PATH
 export TERM=xterm-256color
 alias tmux="tmux -2"
 
-alias e='emacsclient -t'
-alias ec='emacsclient -c'
-alias ag='ag --noheading --color-match="0;42" --color-path="0;36"'
 alias vim='nvim'
 
 # Locale
@@ -76,6 +75,13 @@ autoload -Uz compinit compinit
 bindkey -v
 bindkey jj vi-cmd-mode
 
-source ~/.zshrc.local
+# activate keychain to avoid ssh-add for each session
+eval `keychain --quiet --eval --agents ssh id_rsa`
 
+
+# source zshrc.local for the machine-local stuff if the file exists
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
