@@ -1,4 +1,4 @@
-filetype off
+
 
 " {{{ Plugins
 
@@ -10,13 +10,11 @@ end
 
 " Plugs
 Plug 'Raimondi/delimitMate'
-Plug 'ZoomWin'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'gregsexton/gitv'
-Plug 'majutsushi/tagbar'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'rking/ag.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -24,9 +22,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/a.vim'
-
 Plug 'Neomake/Neomake'
-
+Plug 'vimwiki/vimwiki'
 Plug 'sheerun/vim-polyglot'
 
 " Fzf fuzzy finder
@@ -34,11 +31,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Deoplete autocompletion
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'zchee/deoplete-jedi' " Python completion for deoplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi' " Python completion for deoplete
 " YouCompleteMe
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'davidhalter/jedi'
 
 " Themes
@@ -63,7 +60,6 @@ if has("gui_running")
 endif
 
 " Colors
-
 syntax on
 set t_Co=256
 set termguicolors
@@ -73,7 +69,10 @@ if has("gui_running")
     colorscheme PaperColor
 else
     set background=dark
-    colorscheme PaperColor
+    colorscheme badwolf
+    " transparent background
+    hi Normal guibg=NONE ctermbg=NONE
+    hi NonText guibg=NONE ctermbg=NONE
 endif
 
 " Autocommands
@@ -87,7 +86,7 @@ set shell=bash
 
 set expandtab
 set autoindent
-set shiftwidth=4
+set shiftwidth=2
 set softtabstop=-1
 set smarttab
 set laststatus=2
@@ -96,7 +95,7 @@ set laststatus=2
 set backspace=indent,eol,start
 
 " play nice with clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " lines
 set number
@@ -145,7 +144,6 @@ set wildignore+=*.pyc,*.out,*.o
 set showcmd
 
 " Keymaps
-
 map <Space> <leader>
 imap jj <esc>
 
@@ -170,12 +168,6 @@ nnoremap <Leader>vs :source $MYVIMRC<CR>
 nnoremap <Leader>ze :vsplit ~/.zshrc<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 
-
-" NerdTree
-
-map <C-n> :NERDTreeToggle<CR>
-let g:NERDTreeHijackNetrw = 0
-
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -185,18 +177,17 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline_theme='badwolf'
 
-" Ag
-let g:ag_prg="ag --column --smart-case"
+" Ack.vim
+if executable('rg')
+    let g:ackprg = "rg --vimgrep"
+endif
 
 " delimitmate
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 let g:delimitMate_jump_expansion = 1
-
-" Tagbar
-nnoremap <Leader>t :TagbarToggle<CR>
-let g:tagbar_left = 1
 
 "Gitv stuff
 nnoremap <leader>gv :Gitv<cr>
