@@ -62,14 +62,15 @@ endif
 " Colors
 syntax on
 set t_Co=256
-set termguicolors
+" Disable because it breaks when used with urxvt
+" set termguicolors
 
 if has("gui_running")
     set background=dark
     colorscheme PaperColor
 else
     set background=dark
-    colorscheme badwolf
+    colorscheme gruvbox
     " transparent background
     hi Normal guibg=NONE ctermbg=NONE
     hi NonText guibg=NONE ctermbg=NONE
@@ -80,6 +81,9 @@ endif
 autocmd FileType go setlocal noet sw=8
 autocmd FileType coffee setlocal sw=2
 autocmd FileType grd setlocal sw=2
+
+" Open quickfix window after grepping
+autocmd QuickFixCmdPost *grep* cwindow
 
 " Various
 set shell=bash
@@ -177,7 +181,7 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
-let g:airline_theme='badwolf'
+let g:airline_theme='gruvbox'
 
 " Ack.vim
 if executable('rg')
@@ -230,8 +234,8 @@ let g:Gitv_DoNotMapCtrlKey = 1
 
 " Workaround for nvim bug
 " https://github.com/neovim/neovim/issues/5999
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 source ~/.config/nvim/nvim-local.vim
 
