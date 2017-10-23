@@ -53,7 +53,6 @@ source $ZSH/oh-my-zsh.sh
 [ -f ~/.angerborn.zsh-theme ] && source ~/.angerborn.zsh-theme
 
 export PATH=/usr/local/bin:$PATH
-export PATH=/home/felixa/code/scripts:$PATH
 
 # color support terminal
 export TERM=xterm-256color
