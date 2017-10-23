@@ -61,3 +61,7 @@ URxvt.tabbed.tab-bg: 0
 ! Transparency
 /* URxvt*depth: 32 */
 /* URxvt*background: rgba:0000/0000/0200/c800 */
+
+URxvt*fading: 15
+
+URxvt.letterSpace: -1
