@@ -219,6 +219,9 @@ nmap <leader>b :FzfBuffers<cr>
 nmap <leader>r :FzfHistory<cr>
 nmap <leader>fg :FzfGFiles<cr>
 
+" Custom command for fzf opening wiki files
+nmap <leader>fw :FzfFiles ~/vimwiki/<cr>
+
 " Deoplete tab completion
 inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :
