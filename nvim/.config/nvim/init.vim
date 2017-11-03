@@ -1,5 +1,3 @@
-
-
 " {{{ Plugins
 
 if has('nvim')
@@ -20,11 +18,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/a.vim'
-Plug 'Neomake/Neomake'
 Plug 'vimwiki/vimwiki'
 Plug 'sheerun/vim-polyglot'
+Plug 'w0rp/ale'
 
 " Fzf fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -42,6 +39,7 @@ Plug 'davidhalter/jedi'
 Plug 'sjl/badwolf'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
+Plug 'dracula/vim'
 
 call plug#end()
 
@@ -70,7 +68,7 @@ if has("gui_running")
     colorscheme PaperColor
 else
     set background=dark
-    colorscheme gruvbox
+    colorscheme dracula
     " transparent background
     hi Normal guibg=NONE ctermbg=NONE
     hi NonText guibg=NONE ctermbg=NONE
@@ -180,8 +178,8 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 " Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline_theme='gruvbox'
+let g:airline#extensions#ale#enabled = 1
+let g:airline_theme='dracula'
 
 " Ack.vim
 if executable('rg')
