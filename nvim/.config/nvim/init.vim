@@ -8,38 +8,34 @@ end
 
 " Plugs
 Plug 'Raimondi/delimitMate'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'gregsexton/gitv'
+Plug 'justinmk/vim-dirvish'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'mileszs/ack.vim'
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/a.vim'
 Plug 'vimwiki/vimwiki'
-Plug 'sheerun/vim-polyglot'
 Plug 'w0rp/ale'
+Plug 'mhinz/vim-grepper'
+Plug 'roxma/nvim-completion-manager'
 
-" Fzf fuzzy finder
+" Fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-" Deoplete autocompletion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi' " Python completion for deoplete
-" YouCompleteMe
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-Plug 'davidhalter/jedi'
 
 " Themes
 Plug 'sjl/badwolf'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim'
+Plug 'owickstrom/vim-colors-paramount'
 
 call plug#end()
 
@@ -60,25 +56,20 @@ endif
 " Colors
 syntax on
 set t_Co=256
-" Disable because it breaks when used with urxvt
-" set termguicolors
+set termguicolors
 
 if has("gui_running")
     set background=dark
-    colorscheme PaperColor
-else
-    set background=dark
     colorscheme dracula
+    let g:airline_theme='dracula'
+else
+    set background=light
+    colorscheme PaperColor
+    let g:airline_theme='light'
     " transparent background
-    hi Normal guibg=NONE ctermbg=NONE
-    hi NonText guibg=NONE ctermbg=NONE
+    " hi Normal guibg=NONE ctermbg=NONE
+    " hi NonText guibg=NONE ctermbg=NONE
 endif
-
-" Autocommands
-
-autocmd FileType go setlocal noet sw=8
-autocmd FileType coffee setlocal sw=2
-autocmd FileType grd setlocal sw=2
 
 " Open quickfix window after grepping
 autocmd QuickFixCmdPost *grep* cwindow
@@ -161,43 +152,39 @@ endif
 " remove search-hl on enter
 nnoremap <CR> :let @/ = ""<CR><CR>
 
-" expand %% to current file path in command mode
-cnoremap %% <C-R>=fnameescape(expand('%:p')).'/'<CR>
-
-" some leader mappings
-nnoremap <Leader>ve :vsplit $MYVIMRC<CR>
+nnoremap <Leader>ve :vs $MYVIMRC<CR>
 nnoremap <Leader>vs :source $MYVIMRC<CR>
-nnoremap <Leader>ze :vsplit ~/.zshrc<CR>
 nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gb :Gblame<CR>
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+augroup fileSpecific
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType go setlocal noet sw=8
+  autocmd FileType grd setlocal sw=2
+augroup END
+
+augroup fugitive
+  autocmd BufReadPost fugitive://* set bufhidden=delete
+augroup END
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ale#enabled = 1
-let g:airline_theme='dracula'
 
-" Ack.vim
-if executable('rg')
-    let g:ackprg = "rg --vimgrep"
-endif
-
-" delimitmate
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 let g:delimitMate_jump_expansion = 1
 
-"Gitv stuff
 nnoremap <leader>gv :Gitv<cr>
 nnoremap <leader>gV :Gitv!<cr>
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1 " Enable at startup
-let g:deoplete#enable_smart_case = 1 " Use smart case
+let g:ale_linters = {
+      \ 'java': [],
+\}
 
 " Fzf
 let g:fzf_command_prefix = 'Fzf'
@@ -220,18 +207,30 @@ nmap <leader>fg :FzfGFiles<cr>
 " Custom command for fzf opening wiki files
 nmap <leader>fw :FzfFiles ~/vimwiki/<cr>
 
-" Deoplete tab completion
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ deoplete#mappings#manual_complete()
-function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
+" vim-grepper
+let g:grepper = {}
+let g:grepper.tools = ['rg', 'git']
+let g:grepper.highlight = 1
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
 
-" Please don't overwrite my bindings gitv
-let g:Gitv_DoNotMapCtrlKey = 1
+" Tab completion nvim-completion-manager
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+augroup dirvish
+    autocmd FileType dirvish call fugitive#detect(@%)
+augroup END
+
+" Command to load issues from critic to quickfix
+function! Criticize()
+    set makeprg=criticize
+    set efm+=%f:%l-%*[0-9]:\ %m
+    make
+    cwindow
+endfunction
+
+command! Critic :call Criticize()
 
 " Workaround for nvim bug
 " https://github.com/neovim/neovim/issues/5999
