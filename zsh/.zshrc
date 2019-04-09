@@ -1,3 +1,4 @@
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -77,6 +78,7 @@ bindkey jj vi-cmd-mode
 # activate keychain to avoid ssh-add for each session
 eval `keychain --quiet --eval --agents ssh id_rsa`
 
+source ~/.local/bin/virtualenvwrapper.sh
 
 # source zshrc.local for the machine-local stuff if the file exists
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
