@@ -57,7 +57,6 @@ export PATH=/usr/local/bin:$PATH
 
 # color support terminal
 export TERM=xterm-256color
-alias tmux="tmux -2"
 
 alias vim='nvim'
 
