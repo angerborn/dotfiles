@@ -101,7 +101,11 @@ hc keybind $Mod-BackSpace   cycle_monitor
 hc keybind $Mod-Tab         cycle_all +1
 hc keybind $Mod-Shift-Tab   cycle_all -1
 hc keybind $Mod-c cycle
-hc keybind $Mod-i jumpto urgent
+# hc keybind $Mod-i jumpto urgent
+dir=~/.dotfiles/herbstluftwm/.config/herbstluftwm/
+hc keybind $Mod-i spawn $dir/scratchpad.sh
+hc keybind $Mod-s spawn $dir/toggledualhead.sh
+hc keybind $Mod-semicolon spawn $dir/q3terminal.sh
 
 # launcher
 hc keybind $Mod-space spawn rofi -show run
