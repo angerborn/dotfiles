@@ -196,4 +196,5 @@ done
 hc setenv _JAVA_AWT_WM_NONREPARENTING 1
 
 # start compton
+pkill compton
 hc spawn compton -c
