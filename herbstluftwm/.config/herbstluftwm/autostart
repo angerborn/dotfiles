@@ -193,5 +193,7 @@ done
 # hc rule class=Gimp windowrole=gimp-toolbox focus=off index=00
 # hc rule class=Gimp windowrole=gimp-dock focus=off index=1
 
+hc setenv _JAVA_AWT_WM_NONREPARENTING 1
+
 # start compton
 hc spawn compton -c
