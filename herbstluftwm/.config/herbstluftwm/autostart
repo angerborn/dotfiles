@@ -57,7 +57,7 @@ hc keybind XF86AudioLowerVolume spawn amixer set 'Master' 10%-
 hc keybind XF86AudioMute spawn amixer set 'Master' 0%
 
 # Lock screen(s)
-hc keybind Scroll_Lock spawn gnome-screensaver-command -l
+hc keybind $Mod-z spawn gnome-screensaver-command -l
 
 # tags
 tag_names=( {1..9} )
